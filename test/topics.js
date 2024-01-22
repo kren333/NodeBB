@@ -2199,10 +2199,15 @@ describe('Topic\'s', () => {
             }
         });
 
-        it('should not accept negative uid', async() => {
+        it('should accept the same tid', async () => {
+            const tids = await topics.filterWatchedTids([tid, tid, tid], '1');
+            assert.equal(tids.length, 3);
+        });
+
+        it('should not accept negative uid', async () => {
             const tids = await topics.filterWatchedTids([], '-1');
             assert.equal(tids.length, 0);
-        })
+        });
 
         it('should follow topic', (done) => {
             topics.toggleFollow(tid, followerUid, (err, isFollowing) => {
